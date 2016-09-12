@@ -1,0 +1,32 @@
+#git command line
+sudo apt-get install git
+git init
+
+#to download seaborn 
+sudo apt-get install python3-seaborn
+sudo apt-get install ipython3
+sudo apt-get install ipython3-notebook
+sudo apt-get install python3-sklearn
+sudo apt-get install libroot-bindings-python-dev
+sudo apt install python-pip
+sudo apt-get install python3-networkx
+pip install root_numpy
+sudo apt-get install python-nltk
+
+#To download sql related stuff
+sudo apt-get install postgresql postgresql-contrib
+sudo apt-get install python3-sqlalchemy
+sudo apt-get install python3-sqlalchemy_utils
+sudo apt-get install python3-psycopg2
+
+#some useful short cuts
+echo $LANG -->en_US.UTF-8
+Ctrl+Shift+T ---> Open new terminal Tab
+Ctrl+Alt+T ---> Open new terminal
+Ctrl+Shift+F ---> Find in the screen
+Ctrl+Shift+Q ---> Close terminal window
+Ctrl+Shift+W ---> Close terminal tab
+Ctrl+Shift+PgUp/PgDown ---> Swap tab position of current terminal
+F11 ---> Full screen
+Super+t ---> Group all terminals in current tab so that any input sent to one of them, goes all of them
+Super+Shift+T --->Remove grouping from current tab terminals
