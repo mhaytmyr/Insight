@@ -1,6 +1,11 @@
 #git command line
 sudo apt-get install git
 git init
+git config user.name "mhaytmyr"
+git config --global user.email "mhaytmyr@fnal.gov"
+git add PYTHONPACKAGES
+git commit
+git push -u origin master
 
 #to download seaborn 
 sudo apt-get install python3-seaborn
