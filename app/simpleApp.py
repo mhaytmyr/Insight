@@ -1,4 +1,4 @@
-from app import app
+from app import app, simpleModel
 from flask import render_template
 from sqlalchemy import create_engine
 from sqlalchemy_utils import database_exists, create_database
@@ -51,15 +51,37 @@ def output_page():
 	#pull features from input field and store it
 	patient = request.args.get('case_id')
 	#write simple query
-	query = "SELECT id,country,ethnicity FROM patient_survey_table WHERE age>'%s' "%patient
-	#print(query)
+	#query = """
+	#SELECT  age, gender,ethnicity,"priorDoctors","waitYear","medicationCount",costs FROM patient_survey_table WHERE age>'%s'
+	#"""%patient
+
+	query = """
+	SELECT  age, gender,ethnicity,"priorDoctors","waitYear","medicationCount",costs,insight,reward FROM patient_survey_table WHERE id='%s'
+	"""%patient
+
 	query_results=pd.read_sql_query(query,con)
-	#print(query_results)
 
-	demography = []
+	query_list,features = [],[]
 	for i in range(0,query_results.shape[0]):
-		demography.append(dict(index=query_results.iloc[i]['id'],country=query_results.iloc[i]['country'],ethnicity=query_results.iloc[i]['ethnicity']))
+		query_list.append(dict(age=query_results.iloc[i]['age'],
+			gender=query_results.iloc[i]['gender'],
+			ethnicity=query_results.iloc[i]['ethnicity'],
+			priorDoctors=query_results.iloc[i]['priorDoctors'],
+			waitYear=query_results.iloc[i]['waitYear'],
+			medicationCount=query_results.iloc[i]['medicationCount'],
+			costs=query_results.iloc[i]['costs']
+			))
 
-	#the_result = aModel.ModelIt(patient,births)
-	return render_template("output.html", births = demography, the_result = '50')
+	features = [query_results.iloc[0]['priorDoctors'],
+		query_results.iloc[0]['age'],
+		query_results.iloc[0]['waitYear'],
+		query_results.iloc[0]['reward'],
+            	query_results.iloc[0]['medicationCount'],
+		query_results.iloc[0]['costs']]
+
+	y_true = query_results.iloc[i]['insight']
+	#print(features)
+
+	the_result = simpleModel.ModelIt(y_true,features)
+	return render_template("output.html", features = query_list, the_result =the_result)
 
